@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutterfire_cli: ^0.2.7
+  image_picker: ^1.0.7
   provider: ^6.1.2
   url_launcher: ^6.2.5
 

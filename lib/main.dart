@@ -36,29 +36,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1)),
         // home: const ResponsiveLayout(
         //     mobileLayout: mobileview(), webLayout: Webview()),
-        home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData) {
-                  // return const Signupmobile();
-                  return const ResponsiveLayout(
-                      mobileLayout: mobileview(), webLayout: Webview());
-                } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Some Error has occured'),
-                  );
-                }
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromARGB(0, 0, 0, 1),
-                  ),
-                );
-              }
-              return const LoginViewMobile();
-            }),
+        home: const LoginViewMobile(),
         routes: {
           loginmobile: (context) => const LoginViewMobile(),
           signupmobile: (context) => const Signupmobile(),
