@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
-class ResponsiveLayout extends StatelessWidget {
+class ResponsiveLayout extends StatefulWidget {
   final Widget mobileLayout;
   final Widget webLayout;
   const ResponsiveLayout({
@@ -10,13 +12,29 @@ class ResponsiveLayout extends StatelessWidget {
   });
 
   @override
+  State<ResponsiveLayout> createState() => _ResponsiveLayoutState();
+}
+
+class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+  @override
+  void initState() {
+    addData();
+    super.initState();
+  }
+
+  addData() async {
+    UserProvider _userprovider = Provider.of(context, listen: false);
+    await _userprovider.refreshUser();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 600) {
-          return webLayout;
+          return widget.webLayout;
         } else {
-          return mobileLayout;
+          return widget.mobileLayout;
         }
       },
     );

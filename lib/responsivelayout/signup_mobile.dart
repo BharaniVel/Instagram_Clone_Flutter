@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/auth/auth_options.dart';
+import 'package:instagram_clone/responsivelayout/mobileview/home_screen.dart';
 import 'package:instagram_clone/routes/routes.dart';
 import 'package:instagram_clone/utils/utils.dart';
 
@@ -38,6 +39,12 @@ class _SignupmobileState extends State<Signupmobile> {
     });
     if (res != 'Success') {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => Mobilehomescreen(),
+        ),
+      );
     }
   }
 
