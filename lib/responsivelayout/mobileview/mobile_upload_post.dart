@@ -84,6 +84,12 @@ class _AddpostMobileState extends State<AddpostMobile> {
                   fontSize: 16,
                 ),
               ),
+              actions: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('Post'),
+                )
+              ],
             ),
             body: SingleChildScrollView(
               child: Column(

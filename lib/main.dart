@@ -34,9 +34,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1)),
-        // home: const ResponsiveLayout(
-        //     mobileLayout: mobileview(), webLayout: Webview()),
-        home: const LoginViewMobile(),
+        home: const ResponsiveLayout(
+            mobileLayout: mobileview(), webLayout: Webview()),
         routes: {
           loginmobile: (context) => const LoginViewMobile(),
           signupmobile: (context) => const Signupmobile(),
