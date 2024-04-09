@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/colors.dart';
+import 'package:instagram_clone/models/user.dart';
+import 'package:instagram_clone/resources/firestorage_methods.dart';
 import 'package:instagram_clone/responsivelayout/mobileview/addpost_options.dart';
 import 'package:instagram_clone/utils/utils.dart';
 
@@ -15,7 +17,28 @@ class AddpostMobile extends StatefulWidget {
 }
 
 class _AddpostMobileState extends State<AddpostMobile> {
+  final TextEditingController _descrptioncontroller = TextEditingController();
   Uint8List? _file;
+  @override
+  void dispose() {
+    _descrptioncontroller.dispose();
+    super.dispose();
+  }
+
+  void postImage(
+    String uid,
+    String username,
+  ) async {
+    try {
+      String res = await FireStorageMethods().uploadPost(
+        _descrptioncontroller.text,
+        _file!,
+        username,
+        uid,
+      );
+    } catch (e) {}
+  }
+
   _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
@@ -117,8 +140,9 @@ class _AddpostMobileState extends State<AddpostMobile> {
                   SizedBox(
                     child: Container(
                       height: 150,
-                      child: const TextField(
-                        decoration: InputDecoration(
+                      child: TextField(
+                        controller: _descrptioncontroller,
+                        decoration: const InputDecoration(
                           hintText: '       Write a caption or add a poll....',
                           hintStyle: TextStyle(
                             fontSize: 14,
