@@ -5,6 +5,7 @@ import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/responsivelayout/login_mobile.dart';
 import 'package:instagram_clone/responsivelayout/mobile_screen_main_page.dart';
 import 'package:instagram_clone/responsivelayout/mobile_view.dart';
+import 'package:instagram_clone/responsivelayout/mobileview/home_screen.dart';
 import 'package:instagram_clone/responsivelayout/responsivelayout.dart';
 import 'package:instagram_clone/responsivelayout/signup_mobile.dart';
 import 'package:instagram_clone/responsivelayout/web_layout.dart';
@@ -34,8 +35,9 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1)),
-        home: const ResponsiveLayout(
-            mobileLayout: mobileview(), webLayout: Webview()),
+        // home: const ResponsiveLayout(
+        //     mobileLayout: Mobilehomescreen(), webLayout: Webview()),
+        home: const mobileview(),
         routes: {
           loginmobile: (context) => const LoginViewMobile(),
           signupmobile: (context) => const Signupmobile(),

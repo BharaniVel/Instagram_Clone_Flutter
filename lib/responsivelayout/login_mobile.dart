@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/auth/auth_options.dart';
+import 'package:instagram_clone/responsivelayout/mobile_view.dart';
 import 'package:instagram_clone/responsivelayout/mobileview/home_screen.dart';
 import 'package:instagram_clone/responsivelayout/signup_mobile.dart';
 import 'package:instagram_clone/utils/utils.dart';
@@ -32,7 +33,7 @@ class _LoginViewMobileState extends State<LoginViewMobile> {
         .loginuser(email: _email.text, password: _password.text);
     if (res == 'Success') {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const Mobilehomescreen(),
+        builder: (context) => const mobileview(),
       ));
     } else {
       showSnackBar(res, context);

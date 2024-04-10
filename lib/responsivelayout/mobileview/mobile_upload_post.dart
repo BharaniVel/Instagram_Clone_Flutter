@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/colors.dart';
-import 'package:instagram_clone/models/user.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestorage_methods.dart';
 import 'package:instagram_clone/responsivelayout/mobileview/addpost_options.dart';
 import 'package:instagram_clone/utils/utils.dart';
+import 'package:instagram_clone/models/user.dart' as model;
+import 'package:provider/provider.dart';
 
 class AddpostMobile extends StatefulWidget {
   const AddpostMobile({super.key});
@@ -17,7 +19,10 @@ class AddpostMobile extends StatefulWidget {
 }
 
 class _AddpostMobileState extends State<AddpostMobile> {
+  String username = "";
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   final TextEditingController _descrptioncontroller = TextEditingController();
+  bool _isloading = false;
   Uint8List? _file;
   @override
   void dispose() {
@@ -25,10 +30,24 @@ class _AddpostMobileState extends State<AddpostMobile> {
     super.dispose();
   }
 
+  void getUsernname() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      username = (snap.data()! as Map<String, dynamic>)['username'];
+    });
+  }
+
   void postImage(
     String uid,
     String username,
   ) async {
+    setState(() {
+      _isloading = true;
+    });
+
     try {
       String res = await FireStorageMethods().uploadPost(
         _descrptioncontroller.text,
@@ -36,7 +55,19 @@ class _AddpostMobileState extends State<AddpostMobile> {
         username,
         uid,
       );
-    } catch (e) {}
+
+      if (res == 'success') {
+        showSnackBar('Posted!', context);
+      } else {
+        showSnackBar(res, context);
+      }
+    } catch (e) {
+      showSnackBar(e.toString(), context);
+    } finally {
+      setState(() {
+        _isloading = false;
+      });
+    }
   }
 
   _selectImage(BuildContext context) async {
@@ -85,6 +116,8 @@ class _AddpostMobileState extends State<AddpostMobile> {
 
   @override
   Widget build(BuildContext context) {
+    // final model.User? user =
+    //     Provider.of<UserProvider>(context, listen: false).getUser;
     return _file == null
         ? Center(
             child: IconButton(
@@ -109,7 +142,9 @@ class _AddpostMobileState extends State<AddpostMobile> {
               ),
               actions: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    postImage(uid, username);
+                  },
                   child: const Text('Post'),
                 )
               ],
@@ -117,6 +152,9 @@ class _AddpostMobileState extends State<AddpostMobile> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  _isloading == true
+                      ? const LinearProgressIndicator()
+                      : Container(),
                   Container(
                     height: 270,
                     width: 280,
@@ -167,10 +205,11 @@ class _AddpostMobileState extends State<AddpostMobile> {
                   const Addpostoptions(
                       options: 'Boost Post', icon: Icons.move_up),
                   // Add more options here if needed
-                  SizedBox(height: 20), // Add some space at the bottom
+                  const SizedBox(height: 20), // Add some space at the bottom
                 ],
               ),
             ),
           );
+    //
   }
 }

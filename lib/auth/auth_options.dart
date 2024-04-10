@@ -11,8 +11,7 @@ class Authmethods {
 
     DocumentSnapshot snap =
         await _firestore.collection('users').doc(currentuser.uid).get();
-
-    return model.User.fromsnap(snap);
+    return model.User.fromSnap(snap);
   }
 
   Future<String> signupuser({
@@ -30,7 +29,7 @@ class Authmethods {
           uid: cred.user!.uid,
           username: username,
           email: email,
-          followers: [],
+          follwers: [],
           following: [],
         );
 

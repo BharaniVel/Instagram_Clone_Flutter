@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/colors.dart';
+import 'package:instagram_clone/models/user.dart';
+import 'package:instagram_clone/models/user.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/responsivelayout/mobileview/mobile_upload_post.dart';
+import 'package:instagram_clone/models/user.dart' as modules;
+import 'package:provider/provider.dart';
 
 class mobileview extends StatefulWidget {
   const mobileview({super.key});
@@ -32,10 +37,11 @@ class _mobileviewState extends State<mobileview> {
 
   @override
   Widget build(BuildContext context) {
+    // modules.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       body: PageView(
         children: [
-          Center(child: Text('feed')),
+          Center(child: Text('post')),
           Center(child: Text('Search')),
           const AddpostMobile(),
           Center(child: Text('likes')),
