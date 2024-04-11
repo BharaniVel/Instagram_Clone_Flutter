@@ -36,6 +36,7 @@ dependencies:
   firebase_storage: ^11.7.0
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.9
   flutterfire_cli: ^0.2.7
   image_picker: ^1.0.7
   provider: ^6.1.2

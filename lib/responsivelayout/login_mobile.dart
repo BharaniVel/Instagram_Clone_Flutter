@@ -30,7 +30,7 @@ class _LoginViewMobileState extends State<LoginViewMobile> {
       _isloading = true;
     });
     String res = await Authmethods()
-        .loginuser(email: _email.text, password: _password.text);
+        .loginUser(email: _email.text, password: _password.text);
     if (res == 'Success') {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => const mobileview(),

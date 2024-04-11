@@ -4,6 +4,7 @@ import 'package:instagram_clone/colors.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
+import 'package:instagram_clone/responsivelayout/mobileview/mobile_feed.dart';
 import 'package:instagram_clone/responsivelayout/mobileview/mobile_upload_post.dart';
 import 'package:instagram_clone/models/user.dart' as modules;
 import 'package:provider/provider.dart';
@@ -41,7 +42,7 @@ class _mobileviewState extends State<mobileview> {
     return Scaffold(
       body: PageView(
         children: [
-          Center(child: Text('post')),
+          const Feedscreen(),
           Center(child: Text('Search')),
           const AddpostMobile(),
           Center(child: Text('likes')),

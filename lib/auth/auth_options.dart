@@ -6,24 +6,36 @@ class Authmethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<model.User> getUserdetails() async {
-    User currentuser = _auth.currentUser!;
+  Future<model.User?> getUserDetails() async {
+    User? currentUser = _auth.currentUser;
 
-    DocumentSnapshot snap =
-        await _firestore.collection('users').doc(currentuser.uid).get();
-    return model.User.fromSnap(snap);
+    if (currentUser != null) {
+      DocumentSnapshot<Map<String, dynamic>> snap = await _firestore
+          .collection('users')
+          .doc(currentUser.uid)
+          .get()
+          .catchError((error) => print("Failed to get user details: $error"));
+
+      if (snap.exists) {
+        return model.User.fromSnap(snap);
+      }
+    }
+
+    return null;
   }
 
-  Future<String> signupuser({
+  Future<String> signUpUser({
     required String email,
     required String password,
     required String username,
   }) async {
-    String res = 'Some error occured';
+    String res = 'Some error occurred';
     try {
       if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+          email: email,
+          password: password,
+        );
 
         model.User user = model.User(
           uid: cred.user!.uid,
@@ -46,11 +58,11 @@ class Authmethods {
     return res;
   }
 
-  Future<String> loginuser({
+  Future<String> loginUser({
     required String email,
     required String password,
   }) async {
-    String res = 'Some error occured';
+    String res = 'Some error occurred';
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         await _auth.signInWithEmailAndPassword(
@@ -59,7 +71,7 @@ class Authmethods {
         );
         res = 'Success';
       } else {
-        res = 'Please enter all the field';
+        res = 'Please enter all the fields';
       }
     } catch (err) {
       res = err.toString();

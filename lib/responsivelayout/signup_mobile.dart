@@ -30,7 +30,7 @@ class _SignupmobileState extends State<Signupmobile> {
     setState(() {
       _isloading = true;
     });
-    String res = await Authmethods().signupuser(
+    String res = await Authmethods().signUpUser(
         email: _emailcontroller.text,
         password: _passwordcontroller.text,
         username: _usernamecontroller.text);

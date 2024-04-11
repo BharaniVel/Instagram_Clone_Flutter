@@ -57,6 +57,7 @@ class _AddpostMobileState extends State<AddpostMobile> {
       );
 
       if (res == 'success') {
+        clearImage();
         showSnackBar('Posted!', context);
       } else {
         showSnackBar(res, context);
@@ -68,6 +69,12 @@ class _AddpostMobileState extends State<AddpostMobile> {
         _isloading = false;
       });
     }
+  }
+
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
   }
 
   _selectImage(BuildContext context) async {
@@ -180,8 +187,8 @@ class _AddpostMobileState extends State<AddpostMobile> {
                       height: 150,
                       child: TextField(
                         controller: _descrptioncontroller,
-                        decoration: const InputDecoration(
-                          hintText: '       Write a caption or add a poll....',
+                        decoration: InputDecoration(
+                          hintText: '$username Hi',
                           hintStyle: TextStyle(
                             fontSize: 14,
                           ),
