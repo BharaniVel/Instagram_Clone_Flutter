@@ -24,9 +24,12 @@ class _MobilehomescreenState extends State<Mobilehomescreen> {
   void getUsernname() async {
     DocumentSnapshot snap =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+    print(snap.data());
     setState(() {
-      username = (snap.data()! as Map<String, dynamic>)['Username'];
+      username = (snap.data()! as Map<String, dynamic>)['username'];
     });
+    print(username);
   }
 
   @override

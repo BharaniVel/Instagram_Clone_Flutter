@@ -37,11 +37,11 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1)),
         // home: const ResponsiveLayout(
         //     mobileLayout: Mobilehomescreen(), webLayout: Webview()),
-        home: const mobileview(),
+        home: const LoginViewMobile(),
         routes: {
           loginmobile: (context) => const LoginViewMobile(),
           signupmobile: (context) => const Signupmobile(),
-          homepagemobile: (context) => const Mobilelayouthomepage(),
+          homepagemobile: (context) => const Mobilehomescreen(),
         },
       ),
     );
